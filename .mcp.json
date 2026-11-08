@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "crakseo-serp-api": {
+      "type": "http",
+      "url": "https://crakseo.com/mcp/serp-api"
+    }
+  }
+}

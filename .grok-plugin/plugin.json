@@ -1,0 +1,27 @@
+{
+  "name": "serp-api-by-crakseo",
+  "version": "1.0.0",
+  "description": "SERP API: Live Google Search Results by CrakSEO. SERP API for SEO: live Google search results and keyword rankings by location and device, with SERP features, Google AI Overview sources, Google Maps and Bing.",
+  "author": {
+    "name": "CrakSEO",
+    "email": "support@crakseo.com"
+  },
+  "homepage": "https://docs.crakseo.com/mcp-servers/serp-api",
+  "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+  "license": "MIT",
+  "keywords": [
+    "serp",
+    "google search results",
+    "serp api",
+    "keyword rankings",
+    "seo",
+    "local search",
+    "location and device",
+    "google ai overview",
+    "ai overview sources",
+    "google maps",
+    "bing",
+    "people also ask"
+  ],
+  "logo": "assets/logo.png"
+}

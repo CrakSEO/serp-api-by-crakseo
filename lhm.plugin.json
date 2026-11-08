@@ -1,0 +1,304 @@
+{
+  "version": "1.0.0",
+  "author": "CrakSEO",
+  "authorUrl": "https://github.com/CrakSEO",
+  "icon": "https://raw.githubusercontent.com/CrakSEO/crakseo-mcp-plugins/main/seo-tools-by-crakseo/assets/logo.png",
+  "identifier": "crakseo-serp-api",
+  "name": "SERP API: Live Google Search Results by CrakSEO",
+  "description": "SERP API for SEO: live Google search results and keyword rankings by location and device, with SERP features, Google AI Overview sources, Google Maps and Bing.",
+  "homepage": "https://crakseo.com/mcp/serp-api",
+  "cloudEndpoint": "https://crakseo.com/mcp/serp-api",
+  "tags": [
+    "serp",
+    "google-search-results",
+    "serp-api",
+    "keyword-rankings"
+  ],
+  "tools": [
+    {
+      "name": "get_api_credit_balance",
+      "description": "Free: API credit balance, availability and pricing for SEO data calls. Call first to confirm the connection.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "check_google_rankings",
+      "description": "Check Google rankings: the live Google position and ranking URL of a domain for up to 10 keywords in one country, with the top competing domains. Costs API credits per keyword.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 253,
+            "pattern": "^(https?:\\/\\/)?[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(\\/.*)?$",
+            "description": "Domain or URL, for example example.com. Protocol and www are ignored."
+          },
+          "keywords": {
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "Search query exactly as a user would type it."
+            },
+            "description": "Up to 10 keywords to check, one live Google search each."
+          },
+          "country": {
+            "default": "US",
+            "description": "Two-letter country code of the search market, for example US, GB, DE or IN. Default US.",
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$"
+          },
+          "language": {
+            "default": "en",
+            "description": "Language code of the search market, for example en, de or pt-BR. Default en.",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Za-z]{2,4})?$"
+          },
+          "location": {
+            "description": "Optional exact location name for city-level results, for example \"Austin,Texas,United States\". Overrides country.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "device": {
+            "default": "desktop",
+            "description": "Device to emulate. Default desktop.",
+            "type": "string",
+            "enum": [
+              "desktop",
+              "mobile"
+            ]
+          },
+          "depth": {
+            "default": 30,
+            "description": "How deep to look for the domain, 10 to 100 results. Default 30.",
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "domain",
+          "keywords"
+        ]
+      }
+    },
+    {
+      "name": "get_google_serp",
+      "description": "Google SERP API: live Google search results for any keyword, country and device, with organic positions, titles, URLs, SERP features and AI Overview sources. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Search query exactly as a user would type it."
+          },
+          "country": {
+            "default": "US",
+            "description": "Two-letter country code of the search market, for example US, GB, DE or IN. Default US.",
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$"
+          },
+          "language": {
+            "default": "en",
+            "description": "Language code of the search market, for example en, de or pt-BR. Default en.",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Za-z]{2,4})?$"
+          },
+          "location": {
+            "description": "Optional exact location name for city-level results, for example \"Austin,Texas,United States\". Overrides country.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "device": {
+            "default": "desktop",
+            "description": "Device to emulate. Default desktop.",
+            "type": "string",
+            "enum": [
+              "desktop",
+              "mobile"
+            ]
+          },
+          "depth": {
+            "default": 10,
+            "description": "How many results to fetch, 10 to 100. Each extra page of 10 costs more. Default 10.",
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      }
+    },
+    {
+      "name": "get_bing_serp",
+      "description": "Bing SERP API: live Bing search results for any keyword and country, with organic positions, titles and URLs. Bing results also power DuckDuckGo and other engines. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Search query exactly as a user would type it."
+          },
+          "country": {
+            "default": "US",
+            "description": "Two-letter country code of the search market, for example US, GB, DE or IN. Default US.",
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$"
+          },
+          "language": {
+            "default": "en",
+            "description": "Language code of the search market, for example en, de or pt-BR. Default en.",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Za-z]{2,4})?$"
+          },
+          "location": {
+            "description": "Optional exact location name for city-level results, for example \"Austin,Texas,United States\". Overrides country.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "device": {
+            "default": "desktop",
+            "description": "Device to emulate. Default desktop.",
+            "type": "string",
+            "enum": [
+              "desktop",
+              "mobile"
+            ]
+          },
+          "depth": {
+            "default": 10,
+            "description": "How many results to fetch, 10 to 100. Default 10.",
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      }
+    },
+    {
+      "name": "get_ai_overview_sources",
+      "description": "AI Overview sources: whether Google shows an AI Overview for a keyword, its text, every page it cites, and whether a given domain is cited. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Search query exactly as a user would type it."
+          },
+          "country": {
+            "default": "US",
+            "description": "Two-letter country code of the search market, for example US, GB, DE or IN. Default US.",
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$"
+          },
+          "language": {
+            "default": "en",
+            "description": "Language code of the search market, for example en, de or pt-BR. Default en.",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Za-z]{2,4})?$"
+          },
+          "location": {
+            "description": "Optional exact location name for city-level results, for example \"Austin,Texas,United States\". Overrides country.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "device": {
+            "default": "desktop",
+            "description": "Device to emulate. Default desktop.",
+            "type": "string",
+            "enum": [
+              "desktop",
+              "mobile"
+            ]
+          },
+          "domain": {
+            "description": "Optional domain to check for a citation, for example example.com.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 253,
+            "pattern": "^(https?:\\/\\/)?[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(\\/.*)?$"
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      }
+    },
+    {
+      "name": "check_google_maps_rankings",
+      "description": "Google Maps rankings: the local results for a keyword in a city, with rank, rating, review count, category and address, and the position of a given business. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Search query exactly as a user would type it."
+          },
+          "country": {
+            "default": "US",
+            "description": "Two-letter country code of the search market, for example US, GB, DE or IN. Default US.",
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$"
+          },
+          "language": {
+            "default": "en",
+            "description": "Language code of the search market, for example en, de or pt-BR. Default en.",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Za-z]{2,4})?$"
+          },
+          "location": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "Exact location name of the city, for example \"Austin,Texas,United States\"."
+          },
+          "business": {
+            "description": "Optional business name or domain to find in the results.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 200
+          },
+          "depth": {
+            "default": 20,
+            "description": "How many map results to fetch, 10 to 100. Default 20.",
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "keyword",
+          "location"
+        ]
+      }
+    }
+  ]
+}
